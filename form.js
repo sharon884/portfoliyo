@@ -8,16 +8,25 @@ function SendMail(event) {
   var phone = document.getElementById('phone').value;
   var messageme = document.getElementById('messageme').value;
 
+  // Validate if any field is empty
   if (name === '' || email === '' || phone === '' || messageme === '') {
     alert('Please fill in all the fields.');
     return;
   }
 
+  // Validate name (should not contain numbers)
+  if (!validateName(name)) {
+    alert('Name cannot contain numbers or special characters.');
+    return;
+  }
+
+  // Validate email
   if (!validateEmail(email)) {
     alert('Please enter a valid email address.');
     return;
   }
 
+  // Validate phone
   if (!validatePhone(phone)) {
     alert('Please enter a valid 10-digit phone number.');
     return;
@@ -41,6 +50,12 @@ function SendMail(event) {
       alert('Failed to send your message.');
     }
   );
+}
+
+function validateName(name) {
+  // Name should only contain alphabets and spaces
+  var re = /^[A-Za-z\s]+$/;
+  return re.test(String(name));
 }
 
 function validateEmail(email) {
